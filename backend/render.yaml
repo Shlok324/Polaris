@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: polaris-api
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: POLARIS_DEMO_MODE
+        value: "true"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: polaris-db
+          property: connectionString
+
+databases:
+  - name: polaris-db
+    databaseName: polaris_db
+    user: polaris_user

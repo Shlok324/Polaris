@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+:root {
+  --polaris-bg: #F4E9D8;
+  --polaris-card: #FFF8ED;
+  --polaris-card-hover: #FFFDF9;
+  --polaris-dark: #3B261C;
+  --polaris-heading: #523528;
+  --polaris-brown: #76543F;
+  --polaris-accent: #A67C5B;
+  --polaris-secondary-beige: #D8C2A8;
+  --polaris-border: #B49A82;
+  --polaris-border-light: #D8C2A8;
+  --polaris-paper-tint: rgba(180, 154, 130, 0.08);
+
+  --font-serif: 'DM Serif Display', Georgia, serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+}
+
+body {
+  background-color: var(--polaris-bg);
+  color: var(--polaris-dark);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background-image: 
+    radial-gradient(rgba(180, 154, 130, 0.12) 1px, transparent 0),
+    radial-gradient(rgba(118, 84, 63, 0.04) 1px, var(--polaris-bg) 0);
+  background-size: 32px 32px, 128px 128px;
+  background-position: 0 0, 16px 16px;
+}
+
+/* Typography Helpers */
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+.font-sans {
+  font-family: var(--font-sans);
+}
+
+/* Polar Expedition Journal Styling */
+.journal-card {
+  background: var(--polaris-card);
+  border: 1px solid var(--polaris-border);
+  box-shadow: 2px 3px 0px rgba(59, 38, 28, 0.06);
+  transition: all 0.2s ease-in-out;
+}
+
+.journal-card:hover {
+  background: var(--polaris-card-hover);
+  border-color: var(--polaris-accent);
+  box-shadow: 3px 5px 0px rgba(59, 38, 28, 0.1);
+  transform: translateY(-2px);
+}
+
+.journal-card-static {
+  background: var(--polaris-card);
+  border: 1px solid var(--polaris-border);
+  box-shadow: 2px 3px 0px rgba(59, 38, 28, 0.06);
+}
+
+.topo-lines {
+  background-image: repeating-radial-gradient(
+    circle at 50% 50%,
+    transparent 0,
+    transparent 40px,
+    rgba(180, 154, 130, 0.12) 41px,
+    transparent 42px
+  );
+}
+
+/* Custom Scrollbar for Expedition Journal */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #E8D9C5;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #B49A82;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #76543F;
+}
+
+/* Animations */
+@keyframes routePulse {
+  0% { stroke-dashoffset: 20; }
+  100% { stroke-dashoffset: 0; }
+}
+
+.animate-route {
+  stroke-dasharray: 6 4;
+  animation: routePulse 2s linear infinite;
+}
+
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spinSlow 30s linear infinite;
+}

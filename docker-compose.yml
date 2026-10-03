@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  database:
+    image: postgres:16-alpine
+    container_name: polaris-database
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: polaris_db
+      POSTGRES_USER: polaris_user
+      POSTGRES_PASSWORD: polaris_secure_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      - ./database/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: polaris-backend
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://polaris_user:polaris_secure_password@database:5432/polaris_db
+      POLARIS_DEMO_MODE: "true"
+    ports:
+      - "8000:8000"
+    depends_on:
+      - database
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: polaris-frontend
+    restart: unless-stopped
+    environment:
+      NEXT_PUBLIC_BACKEND_URL: http://localhost:8000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
